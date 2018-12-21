@@ -10,6 +10,8 @@
 #define SPEED (300)
 
 #define PI 3.141592653
+ 
+/*Delete later*/
 
 struct Circle {
         int radius;

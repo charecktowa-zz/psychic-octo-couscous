@@ -7,6 +7,8 @@
 
 #include "./game.h"
 
+/**/ 
+
 int main (int argc, char** argv[]){
 
         if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -91,6 +93,8 @@ int main (int argc, char** argv[]){
                         case SDL_SCANCODE_DOWN :
                         down = true;
                         break;
+
+                        case SDL_SCANCODE_S :
                     }
                 }
             }
