@@ -151,6 +151,9 @@ int main (void){
                         break;   
                 }
             }
+
+            /*determine velocity*/
+
         }
 
         SDL_DestroyWindow(window);
