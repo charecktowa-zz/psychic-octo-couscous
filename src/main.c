@@ -128,15 +128,27 @@ int main (void){
                     break;
 
                     case SDL_KEYDOWN :
-                    switch (e.key.keysym.scancode) {
-                        case SDL_SCANCODE_W :
-                        case SDL_SCANCODE_DOWN :
-                        down = true;
-                        break;
+                        switch (e.key.keysym.scancode) {
+                            case SDL_SCANCODE_W :
+                            down = true;
+                            break;
 
-                        case SDL_SCANCODE_S :
-                        break;
-                    }
+                            case SDL_SCANCODE_S :
+                            up = true;
+                            break;
+                        }
+                    break;
+                    case SDL_KEYUP:
+                        switch (e.key.keysym.scancode) {
+                            case SDL_SCANCODE_W:
+                            up = false;
+                            break;
+
+                            case SDL_SCANCODE_S:
+                            down = false;
+                            break;                            
+                        }                  
+                        break;   
                 }
             }
         }
