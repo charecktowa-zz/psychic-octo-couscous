@@ -1,32 +1,17 @@
-# A simple Makefile for compiling
+OBJS = src/main.c
 
-# set the compiler
-CC := clang
+CC = clang-8
 
-# set the compiler flags
-CFLAGS := `sdl2-config --libs --cflags` -std=c17 -Wall -Wextra -lSDL2_image -lm
+COMPILER_FLAGS = -std=c18 -O2 -Wall -Wextra -Wpedantic -v
 
-# add header files here
-HDRS :=
+LINKER_FLAGS = -lSDL2
 
-# add source files ere
-SRCS := src/main.c
+OBJ_NAME = build/game
 
-# generate names of object files
-OBJS := $(SRCS:.c=.o)
+# headers
+HDR_NAME = src/game.c
 
-# name of executable
-EXEC := game
+all : 
+		$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME) $(OBJS) $(HDR_NAME)
 
-# default recipe
-all: $(EXEC)
-
-# recipe for building the final executable
-$(EXEC): $(OBJS) $(HDRS) Makefile
-	$(CC) -o $@ $(OBJS) $(CFLAGS)
-
-# Cleans the workspace
-clean:
-	rm -f $(EXEC) $(OBJS)
-
-.PHONY: all clean
+# clang-8 -std=c18 -O2 -Wall -Wextra -Wpedantic -v -o game src/main.c
