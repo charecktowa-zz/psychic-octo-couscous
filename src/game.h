@@ -1,27 +1,23 @@
-#ifndef GAME_H_
-#define GAME_H_
+#ifndef _GAME_H_
+#define _GAME_H_
 
-#define SCREEN_WIDTH (640)
-#define SCREEN_HEIGHT (480)
+#include <SDL2/SDL.h>
 
-#define RUNNING_STATE (0)
-#define GAME_OVER (1)
+#include <stdbool.h>
+#include <stdio.h>
 
-#define SPEED (300)
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 480
 
-#define PI 3.141592653
- 
-/*Delete later*/
+/* Depending on the game state will display diferent windows */
+enum GAME_STATE { RUNNING, PLAYER_X_WON, PLAYER_Y_WON, TIME_OUT };
 
-struct Circle {
-        int radius;
-        int h;
-        int k;
-        int new_x;
-        int new_y;
-        int old_x;
-        int old_y;
-        float step;
-}circle;
+SDL_Window *window = NULL;
+SDL_Surface *surface = NULL;
+
+/* function prototypes */
+bool init(SDL_Window *window, SDL_Surface *surface);
+bool loadMedia();
+void closeResources(bool state);
 
 #endif
