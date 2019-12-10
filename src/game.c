@@ -1,12 +1,12 @@
 #include "./game.h"
 
-bool init(SDL_Window *window, SDL_Surface *surface) {
+bool init(SDL_Window *window, SDL_Surface *surface, int *status) {
   bool state = true;
 
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
     fprintf(stderr, "Could not initialize SDL: %s!\n", SDL_GetError());
+    *status = VIDEO_INIT;
     state = false;
-    closeResources(state);
   } else {
     /* Creates the window */
     window = SDL_CreateWindow("Ping Pong", SDL_WINDOWPOS_CENTERED,
@@ -14,8 +14,8 @@ bool init(SDL_Window *window, SDL_Surface *surface) {
                               SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     if (!window) {
       fprintf(stderr, "Error while creating window: %s!\n", SDL_GetError());
+      *status = WINDOW_INIT;
       state = false;
-      closeResources(state);
     } else {
       surface = SDL_GetWindowSurface(window);
     }
@@ -30,12 +30,4 @@ bool loadMedia(void) {
   /* try to load the images */
 
   return state;
-}
-
-void closeResources(bool state) {
-  fprintf(stdout, "Closing resources...\n");
-  SDL_Quit();
-
-  /* Depending of the state it will exit with 0 or 1 */
-  state ? exit(EXIT_SUCCESS) : exit(EXIT_FAILURE);
 }
