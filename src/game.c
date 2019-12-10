@@ -24,10 +24,17 @@ bool init(SDL_Window *window, SDL_Surface *surface, int *status) {
   return state;
 }
 
-bool loadMedia(void) {
+bool loadMedia(SDL_Surface *player, int *status) {
   bool state = true;
 
   /* try to load the images */
+  player = SDL_LoadBMP("somepath");
+
+  if (!player) {
+    fprintf(stderr, "Could not load player asset: %s\n", SDL_GetError());
+    *status = ASSET_LOAD;
+    state = false;
+  }
 
   return state;
 }

@@ -13,10 +13,10 @@
 enum GAME_STATE { RUNNING, PLAYER_X_WON, PLAYER_Y_WON, TIME_OUT };
 
 /* It's supposed to be used for handle errors */
-enum ERROR_STUFF { NORMAL_EXIT, VIDEO_INIT, WINDOW_INIT };
+enum ERROR_STUFF { NORMAL_EXIT, VIDEO_INIT, WINDOW_INIT, ASSET_LOAD };
 
 /* function prototypes */
 bool init(SDL_Window *window, SDL_Surface *surface, int *status);
-bool loadMedia();
+bool loadMedia(SDL_Surface *player, int *status);
 
 #endif
