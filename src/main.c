@@ -7,11 +7,36 @@
 #include "./game.h"
 
 int main(int argc, char **argv) {
-
+  int status; //
+  SDL_Window *window = NULL;
+  SDL_Surface *surface = NULL;
   /*Player*/
 
-  if (init(window, surface) == true)
-    loadMedia();
+  if (init(window, surface, &status) == true)
+    loadMedia(); // loads the image for the thing
 
-  return (0);
+  // perdón Diosito por usar goto.
+  else {
+    switch (status) {
+    case NORMAL_EXIT:
+      goto normal;
+      break;
+    case VIDEO_INIT:
+      goto videoErr;
+      break;
+    case WINDOW_INIT:
+      goto windowErr;
+      break;
+    default:
+      break; // I do not really know
+    }
+  }
+
+normal: // Should end normally closing everything
+
+windowErr:
+  SDL_DestroyWindow(window);
+
+videoErr: // should close only SDL
+  SDL_Quit();
 }
