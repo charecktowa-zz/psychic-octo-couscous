@@ -12,12 +12,11 @@
 /* Depending on the game state will display diferent windows */
 enum GAME_STATE { RUNNING, PLAYER_X_WON, PLAYER_Y_WON, TIME_OUT };
 
-SDL_Window *window = NULL;
-SDL_Surface *surface = NULL;
+/* It's supposed to be used for handle errors */
+enum ERROR_STUFF { NORMAL_EXIT, VIDEO_INIT, WINDOW_INIT };
 
 /* function prototypes */
-bool init(SDL_Window *window, SDL_Surface *surface);
+bool init(SDL_Window *window, SDL_Surface *surface, int *status);
 bool loadMedia();
-void closeResources(bool state);
 
 #endif
