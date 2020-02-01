@@ -1,40 +1,54 @@
 #include "./game.h"
 
-bool init(SDL_Window *window, SDL_Surface *surface, int *status) {
-  bool state = true;
+bool drawRender(SDL_Window *window) {
+  SDL_Surface *screenSurface = NULL;
 
-  if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-    fprintf(stderr, "Could not initialize SDL: %s!\n", SDL_GetError());
-    *status = VIDEO_INIT;
-    state = false;
+  /* Gets the surface from the specified window
+   * It;
+   */
+  screenSurface = SDL_GetWindowSurface(window);
+  fprintf(stdout, "Drawing Render!\n");
+
+  if (screenSurface = NULL) {
+    exception_type = RENDER_FAILED;
+    exceptionHandler(exception_type);
   } else {
-    /* Creates the window */
-    window = SDL_CreateWindow("Ping Pong", SDL_WINDOWPOS_CENTERED,
-                              SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH,
-                              SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-    if (!window) {
-      fprintf(stderr, "Error while creating window: %s!\n", SDL_GetError());
-      *status = WINDOW_INIT;
-      state = false;
-    } else {
-      surface = SDL_GetWindowSurface(window);
-    }
+    SDL_Delay(2000);
   }
 
-  return state;
+  return exception_type;
 }
 
-bool loadMedia(SDL_Surface *player, int *status) {
-  bool state = true;
+bool createWindow(void) {
 
-  /* try to load the images */
-  player = SDL_LoadBMP("somepath");
+  SDL_Window *window = NULL;
 
-  if (!player) {
-    fprintf(stderr, "Could not load player asset: %s\n", SDL_GetError());
-    *status = ASSET_LOAD;
-    state = false;
+  window = SDL_CreateWindow("Ping Pong", SDL_WINDOWPOS_CENTERED,
+                            SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT,
+                            SDL_WINDOW_SHOWN);
+
+  if (window == NULL) {
+    exception_type = WINDOW_CREATION_ERROR;
+    exceptionHandler(exception_type);
+  } else {
+    fprintf(stdout, "Window created correctly.\n");
+
+    drawRender(window);
+  }
+  return (exception_type);
+}
+
+/* Initialize SDL, and then calls another functions to
+   create the window                                     */
+bool initSDL(int status) {
+  if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+    exception_type = VIDEO_ERROR;
+    status = exception_type;
+    exceptionHandler(exception_type);
+  } else {
+    /*If the SDL video inits, then starts creating the window*/
+    createWindow();
   }
 
-  return state;
+  return (status);
 }
