@@ -1,22 +1,22 @@
-#ifndef _GAME_H_
-#define _GAME_H_
+#ifndef _GAME_H
+#define _GAME_H
 
 #include <SDL2/SDL.h>
 
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
+
+/* This header tries to handle properly any error that could happen */
+#include "./exception.h"
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
 
-/* Depending on the game state will display diferent windows */
-enum GAME_STATE { RUNNING, PLAYER_X_WON, PLAYER_Y_WON, TIME_OUT };
+int exception_type;
 
-/* It's supposed to be used for handle errors */
-enum ERROR_STUFF { NORMAL_EXIT, VIDEO_INIT, WINDOW_INIT, ASSET_LOAD };
-
-/* function prototypes */
-bool init(SDL_Window *window, SDL_Surface *surface, int *status);
-bool loadMedia(SDL_Surface *player, int *status);
+bool drawRender(SDL_Window *window);
+bool createWindow(void);
+bool initSDL(int status);
 
 #endif
